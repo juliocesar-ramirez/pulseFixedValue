@@ -121,17 +121,17 @@ void Foam::pulseFixedValueFvPatchField<Type>::autoMap(
       }
 
 
-      template<class Type>
-      void Foam::pulseFixedValueFvPatchField<Type>::updateCoeffs()
-      {
-  if (this->updated()) {
-    return;
+template<class Type>
+void Foam::pulseFixedValueFvPatchField<Type>::updateCoeffs()
+{
+    if (this->updated()) {
+        return;
   }
+    
+    fixedValueFvPatchField<Type>::operator==(baseValue_*(1.0-pulseFraction()) + pulseValue_*pulseFraction());
 
-  fixedValueFvPatchField<Type>::operator==(baseValue_ + pulseValue_);
-
-  fixedValueFvPatchField<Type>::updateCoeffs();
-      }
+    fixedValueFvPatchField<Type>::updateCoeffs();
+}
 
 
       template<class Type>
